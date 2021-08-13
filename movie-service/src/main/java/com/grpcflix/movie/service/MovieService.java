@@ -6,11 +6,13 @@ import com.ferroblesh.grpcflix.movie.MovieSearchResponse;
 import com.ferroblesh.grpcflix.movie.MovieServiceGrpc;
 import com.grpcflix.movie.repository.MovieRepository;
 import io.grpc.stub.StreamObserver;
+import net.devh.boot.grpc.server.service.GrpcService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@GrpcService
 public class MovieService extends MovieServiceGrpc.MovieServiceImplBase {
 
     @Autowired

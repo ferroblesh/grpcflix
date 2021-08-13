@@ -5,12 +5,14 @@ import com.ferroblesh.grpcflix.user.UserGenreUpdateRequest;
 import com.ferroblesh.grpcflix.user.UserResponse;
 import com.ferroblesh.grpcflix.user.UserSearchRequest;
 import com.ferroblesh.grpcflix.user.UserServiceGrpc;
+import com.grpcflix.user.entity.User;
 import com.grpcflix.user.repository.UserRepository;
 import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @GrpcService
 public class UserService extends UserServiceGrpc.UserServiceImplBase {
@@ -25,6 +27,7 @@ public class UserService extends UserServiceGrpc.UserServiceImplBase {
     @Override
     public void getUserGenre(UserSearchRequest request, StreamObserver<UserResponse> responseObserver) {
         UserResponse.Builder userResponseBuilder = UserResponse.newBuilder();
+        List<User> all = this.userRepository.findAll();
         this.userRepository.findById(request.getLoginId())
                 .ifPresent(user -> {
                   userResponseBuilder.setName(user.getName())
